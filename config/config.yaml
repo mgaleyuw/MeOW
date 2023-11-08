@@ -12,6 +12,8 @@ DEFAULTREGION : "resources/allChrom.bed"
 NAMEDCPGS : "resources/cpgIslands.sorted.named.core.tsv"
 NAMEDGENES : "resources/all.sorted.targets.intervals.tsv"
 
+single_target : "Nothing"
+
 LC_ALL : C
 samples: config/blood_5mc_bam_files_20231023.tsv
 targetfile: config/targets.tsv

@@ -10,4 +10,7 @@ include: "differential_methylation.smk"
 
 rule all:
     input:
-        get_temp_target
+        get_one_beta_target
+        #get_one_ttest_target
+        #get_all_ttest_targets
+        #get_all_beta_targets

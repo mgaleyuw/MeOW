@@ -25,8 +25,11 @@ def get_all_beta_targets(wildcards):
     one_column_file="results/{sample}_meow_results/{sample}.beta.dmr.Rmd"
     return [one_column_file.format(sample=x) for x in samples]
 
-def get_temp_target(wildcards):
-    return expand("results/{sample}_meow_results/{sample}.paired_t.dmr.html", sample=["M1019","M0854", "M0855", "M0856", "M0857", "M0858"])
+def get_one_beta_target(wildcards):
+    return "results/{sample}_meow_results/{sample}.beta.dmr.html".format(sample=config["single_target"])
+
+def get_one_ttest_target(wildcards):
+    return "results/{sample}_meow_results/{sample}.beta.dmr.html".format(sample=config["single_target"])
 
 def get_all_controls(wildcards):
     bamfiles = samples[samples["Type"]=="Control"].index.tolist()

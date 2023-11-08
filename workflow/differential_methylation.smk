@@ -18,7 +18,12 @@ rule generate_pooled_ttest_rmd:
         cat workflow/scripts/dmr_pooled.Rmd >> {output}
         echo -e "\n" >> {output}
         cat workflow/scripts/dmr_embedPlots.Rmd >> {output}
-        #cp {output} workflow/scripts/rmd_scripts/{wildcards.SAMPLE}.pooled_t.dmr.Rmd
+        mkdir -p workflow/results/{wildcards.SAMPLE}_meow_results
+        cp {output} workflow/results/{wildcards.SAMPLE}_meow_results/{wildcards.SAMPLE}.pooled_t.dmr.Rmd
+        cp {input} workflow/results/
+        mkdir -p workflow/config
+        cp {params.control_metadata} workflow/{params.control_metadata}
+        cp {params.mdf} workflow/{params.mdf}
         """
 
 rule generate_paired_ttest_rmd:
