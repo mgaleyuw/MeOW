@@ -15,7 +15,7 @@ filter.set
 outputdir <- paste("results/",snakemake@wildcards[["SAMPLE"]],"_meow_results/", sep="")
 write.csv(filter.set, paste(outputdir,testSample,"_significant_DMR_",snakemake@wildcards[["TEST"]],".csv", sep=""), row.names=FALSE)
 write.csv(all.chr.tests, paste(outputdir,testSample,"_all_DMR_",snakemake@wildcards[["TEST"]],".csv", sep=""), row.names=FALSE)
-ggsave(paste(outputdir,testSample,"_significant_DMR_",snakemake@wildcards[["TEST"]],".png", sep=""), width=6, height=4, unit="in", dpi=300)
+ggsave(paste(outputdir,testSample,"_significant_DMR_",snakemake@wildcards[["TEST"]],"_biplot.png", sep=""), width=6, height=4, unit="in", dpi=300)
 ```
 
 ## DMR Plots
@@ -24,8 +24,8 @@ ggsave(paste(outputdir,testSample,"_significant_DMR_",snakemake@wildcards[["TEST
 cpgnames <- filter.set %>% pull(cpg)
 
 plotRibbonGenes(cpg.select.df,cpgs=cpgnames,testSample,exclusions=setdiff(row.names(tmdf),testSample), minmax=FALSE) + ggtitle(testSample)
-ggsave(paste(outputdir,testSample,"_significant_DMR_",snakemake@wildcards[["TEST"]],".png", sep=""), dpi=300, height=11, width=8, unit="in")
+ggsave(paste(outputdir,testSample,"_significant_DMR_",snakemake@wildcards[["TEST"]],"_ribbons.png", sep=""), dpi=300, height=11, width=8, unit="in")
 
 cpgBoxPlots(cpg.select.df, testSample,exclusions=setdiff(row.names(tmdf),testSample),cpgs=cpgnames)
-ggsave(paste(outputdir,testSample,"_significant_DMR_",snakemake@wildcards[["TEST"]],".png", sep=""), dpi=300, height=11, width=8, unit="in")
+ggsave(paste(outputdir,testSample,"_significant_DMR_",snakemake@wildcards[["TEST"]],"_boxplots.png", sep=""), dpi=300, height=11, width=8, unit="in")
 ```
