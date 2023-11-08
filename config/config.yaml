@@ -1,0 +1,21 @@
+CPGISLANDLOC: "resources/positions"
+# path to named cpg region file
+CPGREGIONS : "resources/named.cpgIslands.hg38.sorted.bed"
+
+#paths to rust executables
+RUSTANNOTATE : "workflow/scripts/./intervalAssign"
+
+# default region file
+DEFAULTREGION : "resources/allChrom.bed"
+
+#Files and paths needed for annotation
+NAMEDCPGS : "resources/cpgIslands.sorted.named.core.tsv"
+NAMEDGENES : "resources/all.sorted.targets.intervals.tsv"
+
+LC_ALL : C
+samples: config/blood_5hmc_bamfiles.tsv
+targetfile: config/targets.tsv
+control_metadata: config/blood_5hmc_control_metadata_20231103.csv
+metadata: config/test_metadata.csv
+minimum_control_CpGs: 4000000
+methylation_type: "5hmc5mc_ignore" # 5mc, 5hmc5mc_ignore, 5hmc5mc_bayes

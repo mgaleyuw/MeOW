@@ -1,0 +1,34 @@
+name: dmr_r
+channels:
+  - conda-forge
+  - base
+  - R
+  - bioconda
+dependencies:
+  - r-base=4.2.1
+  - r-essentials
+  - r-ggplot2
+  - r-plyr
+  - r-dplyr
+  - r-scales
+  - r-stringr
+  - r-cowplot
+  - r-tidyr
+  - r-reshape2
+  - r-fitdistrplus
+  - r-base64enc
+  - r-digest
+  - r-evaluate
+  - r-glue
+  - r-highr
+  - r-htmltools
+  - r-jsonlite
+  - r-knitr
+  - r-magrittr
+  - r-markdown
+  - r-mime
+  - r-stringi
+  - r-tinytex
+  - r-xfun
+  - r-yaml
+  - r-ggrepel

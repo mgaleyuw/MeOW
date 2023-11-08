@@ -1,0 +1,76 @@
+---
+title: "MeOW Differential Methylation"
+author:
+    - "MPGZ"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+  number_sections: no
+  theme: default
+  toc: yes
+  toc_depth: 3
+  toc_float:
+    collapsed: no
+    smooth_scroll: yes
+---
+
+```{r echo=FALSE, message=FALSE,warning=FALSE}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(scales)
+library(stringr)
+library(cowplot)
+library(tidyr)
+library(reshape2)
+library(fitdistrplus)
+
+
+pw.colors <- c( "#999999", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#CBD588", "#5F7FC7", "orange","#DA5724", "#508578", "#CD9BCD",
+   "#AD6F3B", "#673770","#D14285", "#652926", "#C84248", 
+  "#8569D5", "#5E738F","#D1A33D", "#8A7C64", "#599861" )
+
+theme_set(theme_classic(base_size=10, base_family="Avenir"))
+cowplot::set_null_device("agg")
+
+source("workflow/scripts/dmr_lib.R")
+source("workflow/scripts/dmr_plotting.R")
+
+cpg.df <- read.table(snakemake@input[["cpg_file"]], sep="\t", header=TRUE, row.names=1)
+cpg.df$pos <- as.numeric(cpg.df$pos)
+
+control.mdf <- read.csv(snakemake@params[["control_metadata"]], header=TRUE, row.names=1)
+tmdf <- read.csv(snakemake@params[["mdf"]], header=TRUE, row.names=1)
+
+mdf <- rbind(control.mdf, tmdf)
+sn.minPositions=as.numeric(snakemake@params["minPositions"])
+sn.bootstraps=as.numeric(snakemake@params["bootstraps"])
+```
+
+# Quality check
+```{r, echo=FALSE}
+cpg.df.freq <- subset(cpg.df, select=-c(chr, pos, cpg, gene))
+cpg.df.freq[cpg.df.freq >= 0] <- 1
+colSums(cpg.df.freq, na.rm=TRUE)
+```
+
+If your samples and the control samples do not have a similar number of positions available and/or the total number of positions is less than 40,000, analysis is not likely to be succesful.
+
+
+```{r, echo=FALSE}
+testSample=snakemake@wildcards[["SAMPLE"]]
+control.list=setdiff(row.names(mdf), row.names(tmdf))
+cpg.select.df <- cpg.df[,c("chr", "pos", "cpg", "gene", control.list, testSample)] %>% drop_na()
+```
+
+# Unsupervised detection of differential methylation
+## Autosomes only
+
+```{r, echo=FALSE}
+cpg.autosome.df <- cpg.select.df[which(!cpg.select.df$chr %in% c("chrX", "chrY")),]
+cpg.autosome.df %>% pull(chr) %>% unique()
+
+cpg.names <- cpg.autosome.df[,"gene"]
+names(cpg.names) <- cpg.autosome.df[,"cpg"]
+
+```

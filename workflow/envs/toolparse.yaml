@@ -1,0 +1,8 @@
+name: samtools_parse
+channels:
+  - conda-forge
+  - base
+  - bioconda
+dependencies:
+  - samtools=1.17
+  - rust=1.72.1

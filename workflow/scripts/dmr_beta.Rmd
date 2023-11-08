@@ -1,0 +1,13 @@
+```{r, echo=FALSE}
+cpg.beta.df <- subset(cpg.autosome.df, select=-c(chr,pos,gene,cpg))
+cpg.beta.df[cpg.beta.df>100] <- 100
+cpg.beta.df <- cpg.beta.df/100
+cpg.beta.df["chr"] <- cpg.autosome.df$chr
+cpg.beta.df["pos"] <- cpg.autosome.df$pos
+cpg.beta.df["gene"] <- cpg.autosome.df$gene
+cpg.beta.df["cpg"] <- cpg.autosome.df$cpg
+```
+```{r}
+all.chr.tests <- coordBetaLong(cpg.beta.df, testSample, correction="BH", minPositions=sn.minPositions, bootstraps=sn.bootstraps, fit.model=FALSE, exclusions=setdiff(row.names(tmdf),testSample))
+all.chr.tests$gene <- cpg.names[all.chr.tests$cpg]
+```

@@ -1,0 +1,13 @@
+configfile: "config/config.yaml"
+
+wildcard_constraints:
+    SAMPLE="M\d\d\d\d"
+
+include: "rules/common.smk"
+include: "rules/controls.smk"
+include: "rules/testcases.smk"
+include: "differential_methylation.smk"
+
+rule all:
+    input:
+        get_temp_target

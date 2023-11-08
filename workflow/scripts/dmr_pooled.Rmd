@@ -1,0 +1,5 @@
+```{r}
+all.chr.tests <- coordTLong(cpg.autosome.df, testSample, var.equal=FALSE, correction="BH", population=control.list, minPositions=sn.minPositions, paired=FALSE, bootstraps=sn.bootstraps)
+all.chr.tests$gene <- cpg.names[all.chr.tests$cpg]
+sprintf("%s cpg islands had greater than %s non null positions.", nrow(all.chr.tests), sn.minPositions)
+```
