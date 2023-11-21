@@ -44,35 +44,10 @@ The following files are produced when running t-tests or beta regressions:
 
 # Conda
 
-MeOW can be used without conda (don't include `--use-conda` when running Snakemake), as long as the following requirements are met:
-- python >= 3.7
-- snakemake
-- samtools=1.17
-- rust=1.72.1
-- r-base=4.2.1
-    - r-essentials
-    - r-ggplot2
-    - r-plyr
-    - r-dplyr
-    - r-scales
-    - r-stringr
-    - r-cowplot
-    - r-tidyr
-    - r-reshape2
-    - r-fitdistrplus
-    - r-base64enc
-    - r-digest
-    - r-evaluate
-    - r-glue
-    - r-highr
-    - r-htmltools
-    - r-jsonlite
-    - r-knitr
-    - r-magrittr
-    - r-markdown
-    - r-mime
-    - r-stringi
-    - r-tinytex
-    - r-xfun
-    - r-yaml
-    - r-ggrepel
+MeOW must be run using conda embedded in snakemake, since some environments used are mutually incompatible. When running snakemake, please use the flag
+
+`-use-conda`
+
+It may be additionally necessary to include the flag:
+
+` --conda-frontend conda`

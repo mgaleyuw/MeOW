@@ -15,14 +15,14 @@ def get_all_ttest_targets(wildcards):
     f = open(config["targetfile"], "r")
     samples = f.read().split("\n")
     f.close()
-    one_column_file="results/{sample}_meow_results/{sample}.paired_t.dmr.Rmd"
+    one_column_file="results/{sample}_meow_results/{sample}.paired_t.dmr.html"
     return [one_column_file.format(sample=x) for x in samples]
 
 def get_all_beta_targets(wildcards):
     f = open(config["targetfile"], "r")
     samples = f.read().split("\n")
     f.close()
-    one_column_file="results/{sample}_meow_results/{sample}.beta.dmr.Rmd"
+    one_column_file="results/{sample}_meow_results/{sample}.beta.dmr.html"
     return [one_column_file.format(sample=x) for x in samples]
 
 def get_one_beta_target(wildcards):
